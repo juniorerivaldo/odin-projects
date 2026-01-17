@@ -1,4 +1,4 @@
-# odin-projectsRaylib + Odin - 50 Desafios de Jogos Incrementais
+# odin-projects Raylib + Odin - 50 Desafios de Jogos Incrementais
 Um repositório de aprendizado progressivo para desenvolvimento de jogos usando Raylib e Odin. Este projeto contém 50 desafios cuidadosamente organizados para levar você de conceitos básicos a sistemas complexos de jogos.
 📋 Sobre o Projeto
 Este repositório é uma jornada de aprendizado estruturada em 5 níveis de dificuldade crescente. Cada desafio foi projetado para construir sobre os conceitos anteriores, permitindo que você desenvolva habilidades sólidas de programação de jogos de forma gradual e consistente.
@@ -9,6 +9,7 @@ Odin: Linguagem moderna, rápida e com sintaxe clara
 
 🎮 Estrutura dos Desafios
 🟢 Nível 1: Jogos Básicos de Movimento (1-10)
+
 1. Quadrado Controlável
 
 Objetivo: Criar um quadrado que responde às teclas direcionais
@@ -70,6 +71,7 @@ Conceitos: Movimento relativo, parent-child relationships, colisão
 Dificuldade: ⭐⭐⭐
 
 🔵 Nível 2: Jogos com Colisão e Objetivos (11-20)
+
 11. Coletor
 
 Objetivo: Colete itens que aparecem em posições aleatórias
@@ -131,6 +133,7 @@ Conceitos: Rotação de nave, tiro direcional, wrapping de tela
 Dificuldade: ⭐⭐⭐
 
 🟡 Nível 3: Jogos com Sistema de Pontuação (21-30)
+
 21. Clicker Básico
 
 Objetivo: Clique para ganhar pontos e comprar melhorias
@@ -192,6 +195,7 @@ Conceitos: Random timing, input matching, highscore
 Dificuldade: ⭐⭐
 
 🟠 Nível 4: Jogos com Mecânicas Expandidas (31-40)
+
 31. Platformer Multi-Níveis
 
 Objetivo: Jogo de plataforma com 3-5 fases distintas
@@ -253,6 +257,7 @@ Conceitos: Algoritmos de geração, randomização, permadeath
 Dificuldade: ⭐⭐⭐⭐
 
 🔴 Nível 5: Jogos com Sistemas Complexos (41-50)
+
 41. Sistema de Inventário Visual
 
 Objetivo: Inventário com drag-and-drop funcional
@@ -318,6 +323,7 @@ Dificuldade: ⭐⭐⭐⭐⭐
 Clone o repositório
 
 bashgit clone https://github.com/seu-usuario/raylib-odin-50-desafios.git
+
 cd raylib-odin-50-desafios
 ```
 
