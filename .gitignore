@@ -1,0 +1,61 @@
+# Build directories
+build/
+*/build/
+**/build/
+
+# Executáveis Odin
+*.exe
+*.bin
+*.out
+*.app
+
+# Arquivos de objeto e biblioteca
+*.o
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+
+# Arquivos temporários do Odin
+*.odin.tmp
+.odin/
+
+# Arquivos de debug
+*.pdb
+*.dSYM/
+
+# Logs
+*.log
+
+# Arquivos do sistema operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.classpath
+
+# Arquivos de backup
+*.bak
+*.backup
+*~
+
+# Cache
+.cache/
+*.cache
+
+# Outros arquivos gerados
+*.autosave
