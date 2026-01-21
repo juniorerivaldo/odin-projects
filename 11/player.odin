@@ -1,5 +1,6 @@
 package game_11
 
+import "core:fmt"
 import rl "vendor:raylib"
 
 
@@ -9,6 +10,7 @@ Player :: struct {
 	speed:     f32,
 	width:     f32,
 	height:    f32,
+	score:     int,
 }
 
 update_player :: proc(player: ^Player, dt: f32) {
@@ -34,5 +36,7 @@ update_player :: proc(player: ^Player, dt: f32) {
 }
 
 draw_player :: proc(player: Player) {
+	score_text := fmt.ctprintf("Score: %d", player.score)
+	rl.DrawText(score_text, 10, 10, 32, rl.GREEN)
 	rl.DrawRectangleV(player.position, {player.width, player.height}, rl.GREEN)
 }

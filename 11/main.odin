@@ -1,6 +1,5 @@
 package game_11
 
-import "core:fmt"
 import rl "vendor:raylib"
 
 
@@ -29,12 +28,14 @@ spawn_itens :: proc(itens: ^[dynamic]Item) {
 	// fmt.printf("TOTAL DE ITENS", len(itens))
 }
 
-update_itens :: proc(itens: ^[dynamic]Item, dt: f32, player: Player) {
+update_itens :: proc(itens: ^[dynamic]Item, dt: f32, player: ^Player) {
 	for i := len(itens) - 1; i >= 0; i -= 1 {
 		itens[i].position += itens[i].direction * itens[i].speed * dt
 
-		if check_collision(itens[i], player) {
+		if check_collision(itens[i], player^) { // aqui usou o ^depois da variavel para desreferenciar ela
 			ordered_remove(itens, i)
+			player.score += 1
+			continue  // <- Pula para a próxima iteração para não dar erro na parte de baixo e tentar remover algo que não existe mais
 		}
 
 		// remover os itens que sairam da tela
@@ -85,6 +86,7 @@ main :: proc() {
 		speed     = 140,
 		width     = 50.0,
 		height    = 50.0,
+		score     = 0,
 	}
 
 
@@ -99,7 +101,7 @@ main :: proc() {
 			spawn_timer = 0
 		}
 
-		update_itens(&items, dt, player)
+		update_itens(&items, dt, &player)
 		update_player(&player, dt)
 
 
