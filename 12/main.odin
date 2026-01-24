@@ -3,30 +3,6 @@ package game_12
 import src "src"
 import rl "vendor:raylib"
 
-Game_Screen :: enum {
-	MENU,
-	GAMEPLAY,
-	GAMEOVER,
-}
-
-Game_State :: struct {
-	current_screen: Game_Screen,
-	score:          int,
-}
-
-spawn_falling_object :: proc(falling_objects: ^[dynamic]src.Falling_Object) {
-	new_falling_object := src.Falling_Object {
-		rect = {
-			x = f32(rl.GetRandomValue(50, 1280 - 50)),
-			y = -50,
-			width = f32(rl.GetRandomValue(30, 55)),
-			height = f32(rl.GetRandomValue(30, 45)),
-		},
-		direction = {0, 1},
-		speed = f32(rl.GetRandomValue(100, 450)),
-	}
-	append(falling_objects, new_falling_object)
-}
 
 main :: proc() {
 	rl.SetTargetFPS(60)
@@ -36,6 +12,7 @@ main :: proc() {
 	game_state := Game_State {
 		current_screen = Game_Screen.MENU,
 		score          = 0,
+		game_over      = false,
 	}
 
 	// VARIAVEIS
@@ -53,41 +30,85 @@ main :: proc() {
 
 	for !rl.WindowShouldClose() {
 
-		if rl.IsKeyDown(.SPACE) {
-			game_state.current_screen = Game_Screen.GAMEPLAY
-		}
-
+		// UPDATE
 		switch game_state.current_screen {
-			case .MENU{
-				
+		case .MENU:
+			if rl.IsKeyPressed(.SPACE) {
+				game_state.current_screen = Game_Screen.GAMEPLAY
+			}
+
+		case .GAMEPLAY:
+			dt := rl.GetFrameTime()
+			spawn_timer += dt
+
+			if spawn_timer >= spawn_interval {
+				spawn_falling_object(&falling_objects)
+				spawn_timer = 0
+			}
+
+			src.update_player(&player, dt)
+			for &obj in falling_objects {
+				src.update_falling_object(&obj, dt)
+			}
+
+			if rl.IsKeyPressed(.SPACE) {
+				game_state.current_screen = Game_Screen.MENU
+			}
+
+		case .GAMEOVER:
+			if rl.IsKeyPressed(.SPACE) {
+				game_state.current_screen = .MENU
 			}
 		}
-		dt := rl.GetFrameTime()
-		spawn_timer += dt
 
-		if spawn_timer >= spawn_interval {
-			spawn_falling_object(&falling_objects)
-			spawn_timer = 0
-		}
-
-		// UPDATE
-		src.update_player(&player, dt)
-		for &obj in falling_objects {
-			src.update_falling_object(&obj, dt)
-		}
 
 		//DRAW
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.BROWN)
 
-		for obj in falling_objects {
-			src.draw_falling_object(obj)
+		switch game_state.current_screen {
+		case .MENU:
+			rl.DrawText("MENU - PRESSIONE ESPAÇO", 350, 300, 40, rl.WHITE)
+
+		case .GAMEPLAY:
+			for obj in falling_objects {
+				src.draw_falling_object(obj)
+			}
+
+			src.draw_player(player)
+
+		case .GAMEOVER:
+			rl.DrawText("GAME OVER", 450, 300, 60, rl.RED)
 		}
-
-		src.draw_player(player)
-
 
 		rl.EndDrawing()
 	}
 	rl.CloseWindow()
+}
+
+
+Game_Screen :: enum {
+	MENU,
+	GAMEPLAY,
+	GAMEOVER,
+}
+
+Game_State :: struct {
+	current_screen: Game_Screen,
+	score:          int,
+	game_over:      bool,
+}
+
+spawn_falling_object :: proc(falling_objects: ^[dynamic]src.Falling_Object) {
+	new_falling_object := src.Falling_Object {
+		rect = {
+			x = f32(rl.GetRandomValue(50, 1280 - 50)),
+			y = -50,
+			width = f32(rl.GetRandomValue(30, 55)),
+			height = f32(rl.GetRandomValue(30, 45)),
+		},
+		direction = {0, 1},
+		speed = f32(rl.GetRandomValue(100, 450)),
+	}
+	append(falling_objects, new_falling_object)
 }
