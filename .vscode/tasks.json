@@ -1,0 +1,46 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Clean Build Folder",
+			"type": "shell",
+			"command": "cmd",
+			"args": ["/C", "rmdir /s /q .\\${input:gameFolder}\\build 2>nul || echo Pasta nao existe"],
+			"problemMatcher": []
+		},
+		{
+			"label": "Create Build Folder",
+			"type": "shell",
+			"command": "cmd",
+			"args": ["/C", "if not exist .\\${input:gameFolder}\\build mkdir .\\${input:gameFolder}\\build"],
+			"dependsOn": ["Clean Build Folder"],
+			"problemMatcher": []
+		},
+		{
+			"label": "Compile Odin",
+			"type": "shell",
+			"command": "odin",
+			"args": ["build", ".\\${input:gameFolder}", "-debug", "-out:.\\${input:gameFolder}\\build\\debug.exe"],
+			"dependsOn": ["Create Build Folder"],
+			"problemMatcher": ["$odin"]
+		},
+		{
+			"label": "Build Game (F5)",
+			"dependsOn": ["Compile Odin"],
+			"dependsOrder": "sequence",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		}
+	],
+	"inputs": [
+		{
+			"id": "gameFolder",
+			"type": "promptString",
+			"description": "Digite o número do jogo (ex: 1, 2, 3...)",
+			"default": "5"
+		}
+	]
+}

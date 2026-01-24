@@ -1,0 +1,24 @@
+{
+	"version": "0.2.0",
+	"inputs": [
+		{
+			"id": "gameFolder",
+			"type": "promptString",
+			"description": "Digite o número do jogo (ex: 1, 2, 3...)",
+			"default": "5"
+		}
+	],
+	"configurations": [
+		{
+			"type": "cppvsdbg",
+			"request": "launch",
+			"preLaunchTask": "Build Game (F5)",
+			"name": "Debug Game",
+			"program": "${workspaceFolder}\\${input:gameFolder}\\build\\debug.exe",
+			"args": [],
+			"cwd": "${workspaceFolder}\\${input:gameFolder}",
+			"stopAtEntry": false,
+			"console": "integratedTerminal"
+		}
+	]
+}
