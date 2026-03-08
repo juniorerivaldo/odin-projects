@@ -44,7 +44,7 @@ draw_player :: proc(player: Player) { 	// aqui não vai ponteiro porque só le o
 		width  = player.size,
 		height = player.size,
 	}
-	// Desenha com rotação
+	// Desenha com rotaçãoporque 
 	rl.DrawRectanglePro(rect, origin, player.rotation, rl.WHITE)
 }
 
